@@ -51,6 +51,34 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.28.0</version>
+                <configuration>
+                    <!--本地或远程docker环境-->
+                    <dockerHost>tcp://127.0.0.1:2375</dockerHost>
+                    <verbose>true</verbose>
+                    <images>
+                        <image>
+                            <name>normal-service-customer</name>
+                            <registry>127.0.0.1:5000</registry>
+                            <build>
+                                <!--dockerfile在工程目录中的路径-->
+                                <dockerFileDir>${project.basedir}/</dockerFileDir>
+                                <!--copies artficact to docker build dir in target-->
+                                <assembly>
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+                                <tags>
+                                    <tag>v2.2</tag>
+                                </tags>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
