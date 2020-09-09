@@ -7,7 +7,7 @@ server:
 
 management:
   server:
-    port: 8084
+    port: 8085
   endpoints:
     web:
       exposure:
@@ -17,8 +17,13 @@ management:
 feign:
   hystrix:
     enabled: true
-
+  client:
+    config:
+      club.mydlq.k8s.feign.TestService:
+        connectTimeout: 5000        #连接超时时间
+        readTimeout: 5000           #读取超时时间
+        loggerLevel: full           #日志等级
 
 logging:
   level:
-    root: "info"
+    root: "debug"
